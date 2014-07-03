@@ -4,6 +4,12 @@ Created on Dec 17, 2012
 @author: kahere
 '''
 
+import numpy as np
+import scipy.io as sio
+import matplotlib.pyplot as plt
+from mpl_toolkits.basemap import Basemap
+from matplotlib import cm
+
 def Plotter(year):
         
         plt.figure(3)
@@ -41,17 +47,12 @@ def Plotter(year):
 
 
 if __name__ == '__main__':
-    import numpy as np
-    import scipy.io as sio
-    import matplotlib.pyplot as plt
-    from mpl_toolkits.basemap import Basemap
-    from matplotlib import cm
     
     np.set_printoptions(threshold=np.nan)
     
     # ------------------------------------------------------------------------
-    year = 2010
-    pdsi_lvl = 2
+    year = 2010 # Year to test
+    pdsi_lvl = 2 # Make map based on PDSI threshold
     # ------------------------------------------------------------------------
     
 #    Open netCDF file
@@ -76,6 +77,7 @@ if __name__ == '__main__':
     event_count = np.zeros((np.size(time),2))
     # First column of event_count is drought, second is flood
     
+    # Produce count of grid cells that exceed threshold PDSI value
     for i in range(np.size(lat)):
         for j in range(np.size(lon)):
             for k in range(np.size(time)):
@@ -88,15 +90,18 @@ if __name__ == '__main__':
                     
     print (event_count)
     
+    # Time series of extreme event areas - pluvials, droughts
     plt.figure(1)
     plt.plot(time,event_count[:,0],'r-')
     plt.plot(time,event_count[:,1],'b-')
     plt.xlim((1300,2005))
     
+    # Time series of total extreme values - pluvials + droughts
     plt.figure(2)
     plt.plot(time,event_count[:,0] + event_count[:,1])
     plt.show()
 
+    # Map of PDSI values for selected year
     Plotter(year)
         
     
