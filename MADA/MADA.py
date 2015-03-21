@@ -2,6 +2,8 @@
 Created on Dec 17, 2012
 
 @author: kahere
+
+Plot time series of pluvials, droughts (Fig 1), extreme event totals (pluvials + droughts, Fig 2), and map of MADA in selected year (Fig 3)
 '''
 
 import numpy as np
